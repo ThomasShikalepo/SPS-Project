@@ -5,37 +5,40 @@ import cors from "cors";
 import helmet from "helmet";
 import morgan from "morgan";
 import * as dynamoose from "dynamoose"; 
-/*ROUTE IMPORTS */ 
 
+/*ROUTE IMPORTS */ 
+import courseRoutes from "./routes/courseRoutes"
 
 /*CONFIGARATION*/
 dotenv.config();
 
 const isProduction = process.env.NODE_ENV === "production";
-
 if (!isProduction) {
-    dynamoose.aws.ddb.local();
+  dynamoose.aws.ddb.local();
 }
+
 
 const app = express();
 app.use(express.json());
 app.use(helmet());
-app.use(helmet.crossOriginResourcePolicy({policy: "cross-origin"}));
+app.use(helmet.crossOriginResourcePolicy({ policy: "cross-origin" }));
 app.use(morgan("common"));
 app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({extended: false}));
+app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cors());
 
 /*ROUTES*/
 app.get("/", (req, res) => {
-    res.send("HeLLO WORD")
-})
+  res.send("Hello World");
+});
+
+app.use("/courses", courseRoutes);
 
 /* SERVER*/ 
 const port = process.env.PORT || 3000;
-if(!isProduction){
-    app.listen(port, () => {
-        console.log(`Server running on port ${port}`)
-    })
+if (!isProduction) {
+  app.listen(port, () => {
+    console.log(`Server running on port ${port}`);
+  });
 }
  
