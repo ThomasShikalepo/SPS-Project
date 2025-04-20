@@ -1,12 +1,35 @@
-import { SignIn } from "@clerk/nextjs";
+"use client";
+
+import { SignIn, useUser } from "@clerk/nextjs";
 import { Darker_Grotesque } from "next/font/google";
 import { constrainedMemory } from "process";
 import {dark} from "@clerk/themes"
 import React from "react";
+import {useSearchParams} from 'next/navigation'
 
 const SignInComponent = () => {
-    return ( <SignIn
+
+const { user } = useUser();
+const searchParams = useSearchParams(); 
+const isCheckoutPage = searchParams.get("showSignUp") ! == null;
+const courseId = searchParams.get("id");
+
+const signUpUrl =  isCheckoutPage ? `/checkout?step=1&id=${courseId}&showSignUp=true` : "/signup";
+
+const getRedirect = () => {
+    if (isCheckoutPage) {
+        return `/checkout?step=2&id=${courseId}`
+    }
+
+    const userType = user?.publicMetadata?.userType as string;
+    if (userType === "teacher") {
+        return "/teacher/courses"
+    }
+    return "/user/courses";
+}
     
+    return ( 
+    <SignIn
     appearance = {{
       baseTheme : dark, 
       elements: {
@@ -26,6 +49,10 @@ const SignInComponent = () => {
          footerActionLink : "text-primary-750 hover:text-primary-600"
     },     
     }}
+    signUpUrl={signUpUrl}
+    forceRedirectUrl={getRedirect()}
+    routing = "hash"
+    afterSignOutUrl="/"
     />
 )
 }
