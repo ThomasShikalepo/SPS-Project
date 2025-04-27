@@ -3,12 +3,12 @@ import { UserProfile } from "@clerk/nextjs";
 import { dark } from '@clerk/themes';
 import React from 'react';
 
-const UserProfilePage = () => {
+const TeacherProfilePage = () => {
   return (
     <>
       <Header title="Profile" subtitle="View your profile" />
       <UserProfile 
-        path='/user/profile'
+        path='/teacher/profile'
         routing='path'
         appearance={{
             baseTheme: dark,
@@ -27,4 +27,4 @@ const UserProfilePage = () => {
   );
 };
 
-export default UserProfilePage;
+export default TeacherProfilePage;
