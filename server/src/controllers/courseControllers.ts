@@ -123,3 +123,32 @@ export const updateCourse = async (
     res.status(500).json({ message: "Error updating course", error });
   }
 };
+
+export const deleteCourse = async (
+  req: Request,
+  res: Response
+): Promise<void> => {
+  const { courseId } = req.params;
+  const { userId } = getAuth(req);
+
+  try {
+    const course = await Course.get(courseId);
+    if (!course) {
+      res.status(404).json({ message: "Course not found" });
+      return;
+    }
+
+    if (course.teacherId !== userId) {
+      res
+        .status(403)
+        .json({ message: "Not authorized to delete this course " });
+      return;
+    }
+
+    await Course.delete(courseId);
+
+    res.json({ message: "Course deleted successfully", data: course });
+  } catch (error) {
+    res.status(500).json({ message: "Error deleting course", error });
+  }
+};
