@@ -1,6 +1,6 @@
 import React from 'react'
 
-const header = ({title, subtitle, rightElement} : HeaderProps) => {
+const Header = ({title, subtitle, rightElement} : HeaderProps) => {
   return (
     <div className='header'>
     <div>
@@ -12,4 +12,4 @@ const header = ({title, subtitle, rightElement} : HeaderProps) => {
   )
 }
 
-export default header
+export default Header
