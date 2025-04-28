@@ -7,6 +7,10 @@ import Image from 'next/image';
 import { useCarousel } from '@/hooks/useCarousel';
 import { Skeleton } from '@/components/ui/skeleton';
 import { useGetCoursesQuery } from '@/state/api';
+import Courses from '@/components/courses/page';
+import { Router } from 'lucide-react';
+import { useRouter } from 'next/navigation';
+import CourseCardSearch from '@/components/CourseCardSearch';
 
 const LoadingSkeleton = () => {
   return (
@@ -41,8 +45,15 @@ const LoadingSkeleton = () => {
 }
 const Landing = () => {
   
-
+const router = useRouter();
   const currentImage = useCarousel({totalImages: 3});
+  const {data: courses, isLoading, isError} = useGetCoursesQuery({});
+
+
+  const handleCourseClick = (courseId: string) =>{
+    router.push(`/search?id=${courseId}`)
+  }
+  console.log("courses:", courses);
   return (
   <motion.div
   initial={{opacity: 0}}
@@ -117,7 +128,26 @@ const Landing = () => {
     ))}
 </div>
 <div className="landing__courses">
-  {/*Courses display*/}
+  {courses && 
+  courses.slice(0,4).map((course, index) => (
+    <motion.div
+    key={course.courseId}
+    initial={{y:50, opacity: 0}}
+    whileInView={{y:0 , opacity:1}}
+     //determine when it gets animated, and since its a list every course gets delayed 0.2 seconds
+    transition ={{duration: 0.5, delay:index * 0.2}}
+    //determine when it gets animated anytime we want
+    viewport={{amount:0.4}}
+  
+    >
+      {/*the course and passing in thethe course info we grabed from the course*/}
+      <CourseCardSearch
+      course={course}
+      onClick={() => handleCourseClick(course.courseId)}
+      />
+    </motion.div>
+  ))
+  }
 </div>
     </motion.div>
     </motion.div>
