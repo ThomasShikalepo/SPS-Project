@@ -1,6 +1,6 @@
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 import { BaseQueryApi, FetchArgs } from "@reduxjs/toolkit/query";
-import { User } from "@clerk/nextjs/server";
+import { User } from "@clerk/nextjs/server"
 import { Clerk } from "@clerk/clerk-js";
 import { toast } from "sonner";
 
@@ -22,6 +22,8 @@ const customBaseQuery = async (
 
   try {
     const result: any = await baseQuery(args, api, extraOptions);
+
+    
 
     if (result.error) {
       const errorData = result.error.data;
@@ -63,6 +65,8 @@ export const api = createApi({
   reducerPath: "api",
   tagTypes: ["Courses", "Users", "UserCourseProgress"],
   endpoints: (build) => ({
+   
+
     /* 
     ===============
     USER CLERK
