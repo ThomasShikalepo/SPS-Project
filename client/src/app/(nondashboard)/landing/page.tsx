@@ -41,8 +41,8 @@ const LoadingSkeleton = () => {
         </div>
       </div>
     </div>
-  )
-}
+  );
+};
 const Landing = () => {
   
 const router = useRouter();
@@ -54,6 +54,8 @@ const router = useRouter();
     router.push(`/search?id=${courseId}`)
   }
   console.log("courses:", courses);
+
+  if (isLoading) return <LoadingSkeleton />;
   return (
   <motion.div
   initial={{opacity: 0}}

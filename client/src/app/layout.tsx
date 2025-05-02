@@ -25,8 +25,10 @@ export default function RootLayout({
     <html lang="en">
       <body className={`${dmSans.className}`}>
         <Providers>
-          {children}
+          {/*layout applied to the entire database*/}
+        <div className="root-layout">{children}</div>
         </Providers>
+        
       </body>
     </html>
     </ClerkProvider>
