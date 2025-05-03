@@ -26,9 +26,11 @@ export default function RootLayout({
     <html lang="en">
       <body className={`${dmSans.className}`}>
         <Providers>
-          {children}
-          <Toaster richColors closeButton />
+              {/*layout applied to the entire database*/}
+        <div className="root-layout">{children}</div>
+        <Toaster richColors closeButton />
         </Providers>
+        
       </body>
     </html>
     </ClerkProvider>

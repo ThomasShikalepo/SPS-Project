@@ -57,6 +57,8 @@ const Landing = () => {
   if (isLoading) return <LoadingSkeleton />;
 
   console.log("courses:", courses);
+
+  if (isLoading) return <LoadingSkeleton />;
   return (
     <motion.div
       initial={{ opacity: 0 }}

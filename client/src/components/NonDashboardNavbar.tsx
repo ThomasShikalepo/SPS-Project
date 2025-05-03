@@ -37,7 +37,7 @@ const NonDashboardNavbar = () => {
               />
             </div>
           </div>
-        </div>
+        
       </div>
 
       {/*right side of screen*/}
@@ -79,6 +79,7 @@ const NonDashboardNavbar = () => {
             Sign Up
           </Link>
         </SignedOut>
+      </div>
       </div>
     </nav>
   );
