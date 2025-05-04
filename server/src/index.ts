@@ -5,11 +5,15 @@ import cors from "cors";
 import helmet from "helmet";
 import morgan from "morgan";
 import * as dynamoose from "dynamoose";
-import { clerkMiddleware, createClerkClient, requireAuth } from "@clerk/express"; 
+import {
+  clerkMiddleware,
+  createClerkClient,
+  requireAuth,
+} from "@clerk/express";
+/*ROUTE IMPORTS */
 import userClerkRoutes from "./routes/userClerkRoutes";
-/*ROUTE IMPORTS */ 
-import courseRoutes from "./routes/courseRoutes"
-
+import courseRoutes from "./routes/courseRoutes";
+import userCourseProgressRoutes from "./routes/userCourseProgressRoutes";
 
 /*CONFIGARATION*/
 dotenv.config();
@@ -21,8 +25,7 @@ if (!isProduction) {
 
 export const clerkClient = createClerkClient({
   secretKey: process.env.CLERK_SECRET_KEY,
-})
-
+});
 
 const app = express();
 app.use(express.json());
@@ -41,12 +44,12 @@ app.get("/", (req, res) => {
 
 app.use("/courses", courseRoutes);
 app.use("/users/clerk", requireAuth(), userClerkRoutes);
+app.use("/users/course-progress", requireAuth(), userCourseProgressRoutes);
 
-/* SERVER*/ 
-const port = process.env.PORT || 3000;
+/* SERVER*/
+const port = process.env.PORT ?? 3000; // || to ??
 if (!isProduction) {
   app.listen(port, () => {
     console.log(`Server running on port ${port}`);
   });
-} 
- 
+}
