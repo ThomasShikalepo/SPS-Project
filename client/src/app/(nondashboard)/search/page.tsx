@@ -6,6 +6,7 @@ import { useRouter, useSearchParams } from 'next/navigation'
 import React, { useEffect, useState } from 'react'
 import { motion } from 'framer-motion';
 import CourseCardSearch from '@/components/CourseCardSearch';
+import SelectedCourse from './SelectedCourse';
 
 const Search = () => {
     const searchParams = useSearchParams();
@@ -25,7 +26,7 @@ if (courses){
     }
     else {
         //set the selected course to be the first value in the list of array
-setSelectedCourse(courses[0]);
+setSelectedCourse(courses[0])
     }
     }
 }, [courses, id]);
@@ -36,6 +37,11 @@ if (isError || !courses) return <div> Failed to fetch  course</div>;
 const handleCourseSelect  =(course: Course) => {
     setSelectedCourse(course);
     router.push(`/search?id=${course.courseId}`);
+};
+
+const handleEnrollNow = (courseId: string) =>{
+  //triggered when someone clicks enroll now
+  router.push(`/checkout?step=1&id=${courseId}&showSignUp=false`)
 };
 
   return( 
@@ -66,6 +72,21 @@ const handleCourseSelect  =(course: Course) => {
       />
       ))}
     </motion.div>
+
+    {selectedCourse && (
+        <motion.div
+        initial={{y:40, opacity: 0}}
+        animate={{y:0 , opacity:1}}
+         //determine when it gets animated, and since its a list every course gets delayed 0.2 seconds
+        transition ={{duration: 0.5, delay: 0.5}}
+      className="search__selected-course"
+  >
+<SelectedCourse
+course={selectedCourse}
+handleEnrollNow={handleEnrollNow}
+/>
+  </motion.div>      
+    )}
     </div>
   </motion.div>
   );
