@@ -26,7 +26,7 @@ if (courses){
     }
     else {
         //set the selected course to be the first value in the list of array
-setSelectedCourse(courses[0])
+setSelectedCourse(courses[0]);
     }
     }
 }, [courses, id]);
