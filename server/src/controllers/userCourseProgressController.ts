@@ -75,14 +75,14 @@ export const updateUserCourseProgress = async (
         courseId,
         enrollmentDate: new Date().toISOString(),
         overallProgress: 0,
-        sections: progressData.sections || [],
+        sections: progressData.sections ?? [], // || to ??
         lastAccessedTimestamp: new Date().toISOString(),
       });
     } else {
       // Merge existing progress with new progress data
       progress.sections = mergeSections(
         progress.sections,
-        progressData.sections || []
+        progressData.sections ?? [] // || to ??
       );
       progress.lastAccessedTimestamp = new Date().toISOString();
       progress.overallProgress = calculateOverallProgress(progress.sections);
