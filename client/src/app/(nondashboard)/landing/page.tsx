@@ -1,7 +1,7 @@
 "use client";
 import React from "react";
 
-  /*An animation library*/
+/*An animation library*/
 
 import { motion } from "framer-motion";
 import Link from "next/link";
@@ -139,7 +139,7 @@ const Landing = () => {
               //determine when it gets animated anytime we want
               viewport={{ amount: 0.4 }}
             >
-              {/* the course and passing in thethe course info we grabed from the course*/}
+              {/* the course and passing in the course info we grabed from the course*/}
 
               <CourseCardSearch
                 course={course}

@@ -1,39 +1,57 @@
-"use client"
-import Loading from "@/components/Loading"
-import Navbar from "@/components/NavBar";
-import { usePathname } from "next/navigation";
-import { useUser } from "@clerk/nextjs";
-import { useState } from "react";
-import { cn } from "@/lib/utils";
-import { SidebarProvider } from "@/components/ui/sidebar";
+"use client";
 import AppSidebar from "@/components/AppSidebar";
+import Loading from "@/components/Loading";
+import Navbar from "@/components/Navbar";
+import { SidebarProvider } from "@/components/ui/sidebar";
+import { cn } from "@/lib/utils";
+import { useUser } from "@clerk/nextjs";
+import { usePathname } from "next/navigation";
+import { useEffect, useState } from "react";
+import ChaptersSidebar from "./user/courses/[courseId]/ChaptersSidebar";
 
+export default function DashboardLayout({
+  children,
+}: Readonly<{
+  children: React.ReactNode;
+}>) {
+  const pathname = usePathname();
+  const [courseId, setCourseId] = useState<string | null>(null);
+  const { user, isLoaded } = useUser();
+  const isCoursePage = /^\/user\/courses\/[^/]+(?:\/chapters\/[^/]+)?$/.test(
+    // removed \
+    pathname
+  );
 
- 
+  useEffect(() => {
+    if (isCoursePage) {
+      const match = RegExp(/\/user\/courses\/([^/]+)/).exec(pathname); // removed \ and match with RegExp()
+      setCourseId(match ? match[1] : null);
+    } else {
+      setCourseId(null);
+    }
+  }, [isCoursePage, pathname]);
 
+  if (!isLoaded) return <Loading />;
+  if (!user) return <div>Please sign in to access this page.</div>;
 
-export default function DashboardLayout({ children } : {children: React.ReactNode}) {
-const pathname =  usePathname();
-const [courseId, setCourseId]=  useState<string | null>(null);
-const {user, isLoaded} = useUser();
-
-//Handle use effect isCoursePage
-
-if(!isLoaded) return <Loading/>;
-if (!user) return <div>Please sign in to access this page.</div>
-
-return (
+  return (
     <SidebarProvider>
-    <div className = "dashboard">
-        <AppSidebar/>
+      <div className="dashboard">
+        <AppSidebar />
         <div className="dashboard__content">
-           {/*chapter sidebar will go*/} 
-           <div className={(cn("dashboard__main", ))}
-           style={{ height: "100vh"}}>
-    <main className="dashboard__body">{children}</main>
-    </div>
-    </div>
-   </div>
-   </SidebarProvider>
-);   
-} 
+          {courseId && <ChaptersSidebar />}
+          <div
+            className={cn(
+              "dashboard__main",
+              isCoursePage && "dashboard__main--not-course"
+            )}
+            style={{ height: "100vh" }}
+          >
+            <Navbar isCoursePage={isCoursePage} />
+            <main className="dashboard__body">{children}</main>
+          </div>
+        </div>
+      </div>
+    </SidebarProvider>
+  );
+}
