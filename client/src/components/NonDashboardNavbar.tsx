@@ -37,49 +37,48 @@ const NonDashboardNavbar = () => {
               />
             </div>
           </div>
-        
-      </div>
+        </div>
 
-      {/*right side of screen*/}
-      <div className="nondashboard-navbar__actions">
-        <button className="nondashboard-navbar__notification-button">
-          <span className="nondashboard-navbar__notification-indicator"></span>
-          {/*bell icon for notifications*/}
-          <Bell className="nondashboard-navbar__notification-icon" />
-        </button>
+        {/*right side of screen*/}
+        <div className="nondashboard-navbar__actions">
+          <button className="nondashboard-navbar__notification-button">
+            <span className="nondashboard-navbar__notification-indicator"></span>
+            {/*bell icon for notifications*/}
+            <Bell className="nondashboard-navbar__notification-icon" />
+          </button>
 
-        <SignedIn>
-          <UserButton
-            appearance={{
-              baseTheme: dark,
-              elements: {
-                userButtonOuterIdentifier: "text-customgreys-dirtyGrey",
-                userButtonBox: "scale-90 sm:scale-100",
-              },
-            }}
-            showName={true}
-            userProfileMode="navigation"
-            userProfileUrl={
-              userRole === "teacher" ? "/teacher/profile" : "/user/profile"
-            }
-          />
-        </SignedIn>
+          <SignedIn>
+            <UserButton
+              appearance={{
+                baseTheme: dark,
+                elements: {
+                  userButtonOuterIdentifier: "text-customgreys-dirtyGrey",
+                  userButtonBox: "scale-90 sm:scale-100",
+                },
+              }}
+              showName={true}
+              userProfileMode="navigation"
+              userProfileUrl={
+                userRole === "teacher" ? "/teacher/profile" : "/user/profile"
+              }
+            />
+          </SignedIn>
 
-        <SignedOut>
-          <Link
-            href="/signin"
-            className="nondashboard-navbar__auth-button--login"
-          >
-            Log in
-          </Link>
-          <Link
-            href="/signup"
-            className="nondashboard-navbar__auth-button--signup"
-          >
-            Sign Up
-          </Link>
-        </SignedOut>
-      </div>
+          <SignedOut>
+            <Link
+              href="/signin"
+              className="nondashboard-navbar__auth-button--login"
+            >
+              Log in
+            </Link>
+            <Link
+              href="/signup"
+              className="nondashboard-navbar__auth-button--signup"
+            >
+              Sign Up
+            </Link>
+          </SignedOut>
+        </div>
       </div>
     </nav>
   );
