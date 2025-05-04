@@ -49,7 +49,7 @@ const SectionModal = () => {
 
   const onSubmit = (data: SectionFormData) => {
     const newSection: Section = {
-      sectionId: section?.sectionId || uuidv4(),
+      sectionId: section?.sectionId ?? uuidv4(), // || to ??
       sectionTitle: data.title,
       sectionDescription: data.description,
       chapters: section?.chapters || [],
