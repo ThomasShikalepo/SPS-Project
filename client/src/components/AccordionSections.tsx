@@ -33,7 +33,7 @@ const AccordionSections = ({sections}: AccordionSectionsProps) => {
            </AccordionItem>
         ))}
         </Accordion>
-  )
-}
+  );
+};
 
 export default AccordionSections
