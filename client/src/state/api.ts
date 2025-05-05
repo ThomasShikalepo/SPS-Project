@@ -152,7 +152,7 @@ export const api = createApi({
     =============== 
     */
     getTransactions: build.query<Transaction[], string>({
-      query: (userId) => `transactions?userId=${userId}`,
+      query: (userId) => `transaction?userId=${userId}`,
     }),
 
 
