@@ -4,6 +4,7 @@ import "./globals.css";
 import Providers from "./providers";
 import { ClerkProvider } from "@clerk/nextjs";
 import { Toaster } from "sonner";
+import { Suspense } from "react";
 
 const dmSans = DM_Sans({
   subsets: ["latin"],
@@ -22,17 +23,17 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <ClerkProvider publishableKey={process.env.NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY}>
-    <html lang="en">
-      <body className={`${dmSans.className}`}>
-        <Providers>
-              {/*layout applied to the entire database*/}
-        <div className="root-layout">{children}</div>
-        <Toaster richColors closeButton />
-        </Providers>
-        
-      </body>
-    </html>
+    <ClerkProvider>
+      <html lang="en">
+        <body className={`${dmSans.className}`}>
+          <Providers>
+            <Suspense fallback={null}>
+              <div className="root-layout">{children}</div>
+            </Suspense>
+            <Toaster richColors closeButton />
+          </Providers>
+        </body>
+      </html>
     </ClerkProvider>
   );
 }

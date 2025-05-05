@@ -87,7 +87,7 @@ const createTransaction = (req, res) => __awaiter(void 0, void 0, void 0, functi
             userId,
             courseId,
             enrollmentDate: new Date().toISOString(),
-            overallProgress: 0, //  meaning they just started 
+            overallProgress: 0, //  meaning they just started
             sections: course.sections.map((section) => ({
                 sectionId: section.sectionId,
                 chapters: section.chapters.map((chapter) => ({

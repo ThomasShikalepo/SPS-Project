@@ -67,7 +67,7 @@ const ChapterModal = () => {
     if (selectedSectionIndex === null) return;
 
     const newChapter: Chapter = {
-      chapterId: chapter?.chapterId || uuidv4(),
+      chapterId: chapter?.chapterId ?? uuidv4(),
       title: data.title,
       content: data.content,
       type: data.video ? "Video" : "Text",

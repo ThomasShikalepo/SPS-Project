@@ -94,7 +94,7 @@ export const createTransaction = async (
       userId,
       courseId,
       enrollmentDate: new Date().toISOString(),
-      overallProgress: 0, //  meaning they just started 
+      overallProgress: 0, //  meaning they just started
       sections: course.sections.map((section: any) => ({
         sectionId: section.sectionId,
         chapters: section.chapters.map((chapter: any) => ({

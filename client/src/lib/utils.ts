@@ -1,7 +1,7 @@
 import { type ClassValue, clsx } from "clsx";
 import { twMerge } from "tailwind-merge";
 import * as z from "zod";
-import { api } from "../../../../../Downloads/asset-download-20250403T143632Z-001/asset-download/client/state/api";
+import { api } from "../state/api";
 import { toast } from "sonner";
 
 export function cn(...inputs: ClassValue[]) {
@@ -13,7 +13,7 @@ export function formatPrice(cents: number | undefined): string {
   return new Intl.NumberFormat("en-US", {
     style: "currency",
     currency: "USD",
-  }).format((cents || 0) / 100);
+  }).format((cents ?? 0) / 100);
 }
 
 // Convert dollars to cents (e.g., "49.99" -> 4999)
@@ -24,7 +24,7 @@ export function dollarsToCents(dollars: string | number): number {
 
 // Convert cents to dollars (e.g., 4999 -> "49.99")
 export function centsToDollars(cents: number | undefined): string {
-  return ((cents || 0) / 100).toString();
+  return ((cents ?? 0) / 100).toString();
 }
 
 // Zod schema for price input (converts dollar input to cents)
@@ -241,8 +241,8 @@ export const NAVBAR_HEIGHT = 48;
 
 export const courseCategories = [
   { value: "technology", label: "Technology" },
-  { value: "science", label: "Science" },
-  { value: "mathematics", label: "Mathematics" },
+  { value: "coding", label: "Coding" },
+  { value: "electronics", label: "Electronics" },
   { value: "artificial-intelligence", label: "Artificial Intelligence" },
 ] as const;
 
@@ -324,18 +324,18 @@ export const uploadAllVideos = async (
     })),
   }));
 
-  for (let i = 0; i < updatedSections.length; i++) {
-    for (let j = 0; j < updatedSections[i].chapters.length; j++) {
-      const chapter = updatedSections[i].chapters[j];
+  for (const element of updatedSections) {
+    for (let j = 0; j < element.chapters.length; j++) {
+      const chapter = element.chapters[j];
       if (chapter.video instanceof File && chapter.video.type === "video/mp4") {
         try {
           const updatedChapter = await uploadVideo(
             chapter,
             courseId,
-            updatedSections[i].sectionId,
+            element.sectionId,
             getUploadVideoUrl
           );
-          updatedSections[i].chapters[j] = updatedChapter;
+          element.chapters[j] = updatedChapter;
         } catch (error) {
           console.error(
             `Failed to upload video for chapter ${chapter.chapterId}:`,

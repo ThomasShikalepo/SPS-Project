@@ -26,8 +26,8 @@ const customBaseQuery = async (
     if (result.error) {
       const errorData = result.error.data;
       const errorMessage =
-        errorData?.message ?? // replaced || with ??
-        result.error.status.toString() ?? // replaced || with ??
+        errorData?.message ??
+        result.error.status.toString() ??
         "An error occurred";
       toast.error(`Error: ${errorMessage}`);
     }
@@ -152,10 +152,8 @@ export const api = createApi({
     =============== 
     */
     getTransactions: build.query<Transaction[], string>({
-      query: (userId) => `transaction?userId=${userId}`,
+      query: (userId) => `transactions?userId=${userId}`,
     }),
-
-
     createStripePaymentIntent: build.mutation<
       { clientSecret: string },
       { amount: number }
@@ -232,8 +230,6 @@ export const api = createApi({
         }
       },
     }),
-
-
   }),
 });
 
