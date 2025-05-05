@@ -11,20 +11,19 @@ import ChaptersSidebar from "./user/courses/[courseId]/ChaptersSidebar";
 
 export default function DashboardLayout({
   children,
-}: Readonly<{
+}: {
   children: React.ReactNode;
-}>) {
+}) {
   const pathname = usePathname();
   const [courseId, setCourseId] = useState<string | null>(null);
   const { user, isLoaded } = useUser();
-  const isCoursePage = /^\/user\/courses\/[^/]+(?:\/chapters\/[^/]+)?$/.test(
-    // removed \
+  const isCoursePage = /^\/user\/courses\/[^\/]+(?:\/chapters\/[^\/]+)?$/.test(
     pathname
   );
 
   useEffect(() => {
     if (isCoursePage) {
-      const match = pathname.match(/\/user\/courses\/([^/]+)/); // removed \ and match with RegExp()
+      const match = pathname.match(/\/user\/courses\/([^\/]+)/);
       setCourseId(match ? match[1] : null);
     } else {
       setCourseId(null);
