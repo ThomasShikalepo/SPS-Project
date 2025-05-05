@@ -39,6 +39,6 @@ export const createStripePaymentIntent = async (
       },
     });
     } catch (error) {
-      res.status(500).json({ message: "Error retrieving course", error });
+      res.status(500).json({ message: "Error creating strip payment intent", error });
     }
   };
