@@ -24,7 +24,7 @@ export default function DashboardLayout({
 
   useEffect(() => {
     if (isCoursePage) {
-      const match = RegExp(/\/user\/courses\/([^/]+)/).exec(pathname); // removed \ and match with RegExp()
+      const match = pathname.match(/\/user\/courses\/([^/]+)/); // removed \ and match with RegExp()
       setCourseId(match ? match[1] : null);
     } else {
       setCourseId(null);
