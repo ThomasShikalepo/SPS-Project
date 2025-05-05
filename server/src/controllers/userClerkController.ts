@@ -12,7 +12,7 @@ export const updateUser = async (req: Request, res: Response): Promise<void> => 
        } 
      })
   
-      res.json({ message: "user upadated successfully", data: user });
+      res.json({ message: "user updated successfully", data: user });
     } catch (error) {
       res.status(500).json({ message: "Error updating user", error });
     }
