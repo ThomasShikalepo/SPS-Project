@@ -1,6 +1,6 @@
 "use client"
 import Loading from "@/components/Loading"
-import Navbar from "@/components/NavBar";
+import Navbar from "@/components/Navbar";
 import { usePathname } from "next/navigation";
 import { useUser } from "@clerk/nextjs";
 import { useState } from "react";
@@ -8,8 +8,6 @@ import { cn } from "@/lib/utils";
 import { SidebarProvider } from "@/components/ui/sidebar";
 import AppSidebar from "@/components/AppSidebar";
 
-
- 
 
 
 export default function DashboardLayout({ children } : {children: React.ReactNode}) {
