@@ -1,15 +1,15 @@
-import React from 'react'
+import React from "react";
 
-const Header = ({title, subtitle, rightElement} : HeaderProps) => {
+const Header = ({ title, subtitle, rightElement }: HeaderProps) => {
   return (
-    <div className='header'>
-    <div>
+    <div className="header">
+      <div>
         <h1 className="header_title">{title}</h1>
-        <p className='header__subtitle'>{subtitle}</p>
+        <p className="header__subtitle">{subtitle}</p>
+      </div>
+      {rightElement && <div>{rightElement}</div>}
     </div>
-    {rightElement && <div>{rightElement}</div>}
-    </div>
-  )
-}
+  );
+};
 
-export default Header
+export default Header;

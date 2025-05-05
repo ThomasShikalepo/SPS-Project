@@ -103,7 +103,7 @@ const Section = ({
   ) => void;
 }) => {
   const completedChapters =
-    sectionProgress?.chapters.filter((c: any) => c.completed).length || 0;
+    sectionProgress?.chapters.filter((c: any) => c.completed).length ?? 0;
   const totalChapters = section.chapters.length;
   const isExpanded = expandedSections.includes(section.sectionTitle);
 
