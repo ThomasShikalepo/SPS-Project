@@ -50,6 +50,7 @@ const express_2 = require("@clerk/express");
 const userClerkRoutes_1 = __importDefault(require("./routes/userClerkRoutes"));
 const courseRoutes_1 = __importDefault(require("./routes/courseRoutes"));
 const userCourseProgressRoutes_1 = __importDefault(require("./routes/userCourseProgressRoutes"));
+const transactionRoutes_1 = __importDefault(require("./routes/transactionRoutes"));
 /*CONFIGARATION*/
 dotenv_1.default.config();
 const isProduction = process.env.NODE_ENV === "production";
@@ -75,6 +76,7 @@ app.get("/", (req, res) => {
 app.use("/courses", courseRoutes_1.default);
 app.use("/users/clerk", (0, express_2.requireAuth)(), userClerkRoutes_1.default);
 app.use("/users/course-progress", (0, express_2.requireAuth)(), userCourseProgressRoutes_1.default);
+app.use("/transactions", (0, express_2.requireAuth)(), transactionRoutes_1.default);
 /* SERVER*/
 const port = (_a = process.env.PORT) !== null && _a !== void 0 ? _a : 3000; // || to ??
 if (!isProduction) {

@@ -40,7 +40,7 @@ const createStripePaymentIntent = (req, res) => __awaiter(void 0, void 0, void 0
         });
     }
     catch (error) {
-        res.status(500).json({ message: "Error retrieving course", error });
+        res.status(500).json({ message: "Error creating strip payment intent", error });
     }
 });
 exports.createStripePaymentIntent = createStripePaymentIntent;
