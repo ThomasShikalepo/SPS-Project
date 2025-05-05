@@ -6,6 +6,8 @@ import { useUser } from '@clerk/nextjs'
 import WizardStepper from '@/components/WizardStepper'
 import { useCheckoutNavigation } from '@/hooks/useCheckoutNavigation'
 import CheckoutDetailPage from './details'
+import PaymentPage from './payment'
+import CompletionPage from './completion'
 
 
 const CheckoutWizard = () => {
@@ -22,11 +24,11 @@ const CheckoutWizard = () => {
         case 1:
             return <CheckoutDetailPage />
         case 2: 
-            return <paymentPage/>
+            return <PaymentPage/>
         case 3: 
-            return "completion page"
+            return <CompletionPage />
         default:
-            return "checkout details page"
+            return <CheckoutDetailPage />
     }
   }
     
