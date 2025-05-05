@@ -34,8 +34,8 @@ const PaymentPageContent = () => {
     const baseUrl = process.env.NEXT_PUBLIC_LOCAL_URL
       ? `http://${process.env.NEXT_PUBLIC_LOCAL_URL}`
       : process.env.NEXT_PUBLIC_VERCEL_URL
-      ? `https://${process.env.NEXT_PUBLIC_VERCEL_URL}`
-      : undefined;
+        ? `https://${process.env.NEXT_PUBLIC_VERCEL_URL}`
+        : undefined;
 
     const result = await stripe.confirmPayment({
       elements,
@@ -51,7 +51,7 @@ const PaymentPageContent = () => {
         userId: user?.id,
         courseId: courseId,
         paymentProvider: "stripe",
-        amount: course?.price || 0,
+        amount: course?.price ?? 0,
       };
 
       await createTransaction(transactionData), navigateToStep(3);
@@ -73,7 +73,7 @@ const PaymentPageContent = () => {
           <CoursePreview course={course} />
         </div>
 
-        {/* Pyament Form */}
+        {/* Payment Form */}
         <div className="payment__form-container">
           <form
             id="payment-form"
